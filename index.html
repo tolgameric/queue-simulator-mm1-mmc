@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Engineering Project - Queue Simulator • M/M/1 – M/M/c</title>
+</head>
+<body>
+    <div class="grid-2">
+        <div class="section-1">
+            <i class="fas fa-network-wired fa-5x white"></i>
+            <h2>M/M/1 – M/M/c</h2>
+            <p>Queue Simulator &amp; Analyzer</p>
+            <div class="socials">
+              <a href="#" title="Docs"><i class="fas fa-book"></i></a>
+              <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="Download"><i class="fas fa-download"></i></a>
+            </div>
+            <div class="legend-mini">
+              <span class="chip ok">ρ &lt; 0.7 Stable</span>
+              <span class="chip warn">0.7–0.9 High utilization</span>
+              <span class="chip danger">≥ 0.9 Near saturation</span>
+            </div>
+        </div>
+        <div class="section-2">
+            <div class="card">
+              <h2><i class="fas fa-sliders-h"></i> Parameters</h2>
+              <div class="grid three">
+                <label>λ (arrival rate)<input id="lambda" type="number" step="0.01" value="3.2" min="0.01"></label>
+                <label>μ (service rate/server)<input id="mu" type="number" step="0.01" value="1.5" min="0.01"></label>
+                <label>c (servers)<input id="servers" type="number" step="1" value="3" min="1"></label>
+                <label>Target ρ (optional)<input id="rhoTarget" type="number" step="0.01" placeholder="0.85"></label>
+                <label>Sim Time<input id="simTime" type="number" step="1" value="5000" min="100"></label>
+                <label>Warmup<input id="warmup" type="number" step="1" value="500" min="0"></label>
+                <label>Seed<input id="seed" type="number" step="1" value="42"></label>
+              </div>
+              <div class="row">
+                <button class="btn primary" id="btnAnalytic"><i class="fas fa-calculator"></i> Analytic</button>
+                <button class="btn" id="btnSim"><i class="fas fa-play"></i> Simulate</button>
+                <button class="btn ghost" id="btnBoth"><i class="fas fa-balance-scale"></i> Compare</button>
+                <button class="btn danger" id="btnClear"><i class="fas fa-eraser"></i> Clear</button>
+              </div>
+              <div id="alerts" class="alerts"></div>
+            </div>
+
+            <div class="grid two">
+              <div class="card">
+                <h2><i class="fas fa-superscript"></i> Analytic (M/M/c)</h2>
+                <div id="analytic" class="metrics"></div>
+              </div>
+              <div class="card">
+                <h2><i class="fas fa-vials"></i> Simulation</h2>
+                <div id="sim" class="metrics"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2><i class="fas fa-chart-line"></i> Compare &amp; Charts</h2>
+              <div id="compare" class="metrics"></div>
+              <div class="grid two">
+                <div class="card inner">
+                  <h3>Queue Length (time series)</h3>
+                  <div id="chartQueue" class="chart"></div>
+                </div>
+                <div class="card inner">
+                  <h3>Utilization Gauge</h3>
+                  <div id="gaugeUtil" class="gauge"></div>
+                </div>
+              </div>
+            </div>
+
+ 
+            <div class="card">
+              <h2><i class="fas fa-th"></i> Heatmap</h2>
+              <div class="grid three">
+                <label>λ min<input id="hmLamMin" type="number" step="0.1" value="0.5"></label>
+                <label>λ max<input id="hmLamMax" type="number" step="0.1" value="5.0"></label>
+                <label>λ step<input id="hmLamStep" type="number" step="0.1" value="0.5"></label>
+                <label>μ min<input id="hmMuMin" type="number" step="0.1" value="0.5"></label>
+                <label>μ max<input id="hmMuMax" type="number" step="0.1" value="5.0"></label>
+                <label>μ step<input id="hmMuStep" type="number" step="0.1" value="0.5"></label>
+                <label>c (fixed)<input id="hmC" type="number" step="1" value="3" min="1"></label>
+                <label>Metric
+                  <select id="hmMetric">
+                    <option value="L">L (system)</option>
+                    <option value="Lq">Lq (queue)</option>
+                    <option value="W">W (system)</option>
+                    <option value="Wq">Wq (queue)</option>
+                    <option value="rho">ρ (utilization)</option>
+                  </select>
+                </label>
+              </div>
+              <div class="row">
+                <button class="btn" id="btnHeatmap"><i class="fas fa-fire"></i> Build Heatmap</button>
+              </div>
+              <div id="heatmap" class="heatmap"></div>
+            </div>
+            <!-- Minimal Contact Card -->
+<div class="card contact-mini">
+  <img class="contact-mini__avatar" src="https://media.licdn.com/dms/image/v2/D4D03AQEpy_g2a9ZRYQ/profile-displayphoto-shrink_200_200/B4DZTH8ztfGkAY-/0/1738521395014?e=1761782400&v=beta&t=eEzN1Ig-CTx4IXtYn4xjCfamIhZtrOHW1Nz4bP6DZLk" alt="Profile Image">
+  <div class="contact-mini__body">
+    <div class="contact-mini__top">
+      <h3 class="contact-mini__name">Tolga Meriç</h3>
+      <span class="contact-mini__badge">
+        <i class="fa-solid fa-swatchbook"></i> Engineer
+      </span>
+    </div>
+
+    <p class="contact-mini__bio">
+      Industrial engineer focused on queueing theory, optimization, and simulation. I build lightweight, reproducible decision tools.
+    </p>
+
+    <div class="contact-mini__actions">
+  <!-- LinkedIn Contact -->
+  <a class="btn primary btn-xs"
+       href="https://www.linkedin.com/in/tolga-meric/"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Contact on LinkedIn">
+    <i class="fa-brands fa-linkedin"></i><span>Contact</span>
+  </a>
+
+  <!-- LinkedIn Follow (profilde Follow’a tıklanır) -->
+  <a class="btn ghost btn-xs"
+     href="https://www.linkedin.com/in/tolga-meric/"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Follow on LinkedIn">
+    <i class="fa-solid fa-user-plus"></i><span>Follow</span>
+  </a>
+</div>
+
+
+    <div class="contact-mini__meta">
+      <div class="contact-mini__socials">
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" aria-label="Dribbble"><i class="fa-brands fa-dribbble"></i></a>
+      </div>
+      <span class="contact-mini__loc">
+        <i class="fa-solid fa-location-dot"></i> 
+      </span>
+    </div>
+  </div>
+</div>
+
+
+            <div class="footer-note">
+              <p>©Tolga Meriç - 2025 : Queue Simulator — Formulas: M/M/1 and Erlang-C (M/M/c).</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
