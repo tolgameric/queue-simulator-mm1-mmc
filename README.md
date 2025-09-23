@@ -24,3 +24,18 @@ Lightweight **queueing theory lab**: Analytics (M/M/1 & M/M/c/Erlang-C) + **disc
 - **Simulation L**: time-average **area in system** (not an approximation)
 
 ## 🧩 Folder Structure
+index.html # UI (two columns: left legend + compact heatmap)
+style.css # Theme + components (card/grid/btn/metrics/gauge/heatmap)
+app.js # Analytics + simulation + charts + heatmap
+icon.png # Site icon
+
+
+## 🚀 Run Locally
+**Option A (VS Code – Live Server)**  
+1. Open folder in VS Code  
+2. Install “Live Server” extension  
+3. Right-click `index.html` → **Open with Live Server**
+
+**Option B (simple Python server)**
+```bash
+python -m http.server 8000
